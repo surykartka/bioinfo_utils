@@ -18,7 +18,7 @@ def get_ntDist(seq):
 	print(ntDist)
 	return ntDist
 
-def print_weblogo(file, start=None):
+def print_weblogo(file, start=1):
 	seqs = {}
 	for rec in SeqIO.parse(open(file),'fasta'):
 	    r,seq = rec.description,str(rec.seq)
@@ -31,7 +31,7 @@ def print_weblogo(file, start=None):
 	cmd += '< %s > weblogo.pdf' % file
 	os.system(cmd)
 
-def print_EDlogo(file, start=None):
+def print_EDlogo(file, start=1):
 	#https://bmcbioinformatics.biomedcentral.com/articles/10.1186/s12859-018-2489-3
 	# EDLogo plot
 	# start denotes the first position on x axis
@@ -56,8 +56,6 @@ def print_EDlogo(file, start=None):
 		vector = [r_i_corr[i] for i in acgt]
 		mat.append(vector)
 	
-	if not start:
-		start = 1
 	end = len(seq)+start
 
 	logo_df = pandas.DataFrame(mat, columns=acgt, index=range(start, end))
