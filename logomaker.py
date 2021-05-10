@@ -18,16 +18,17 @@ def get_ntDist(seq):
 	print(ntDist)
 	return ntDist
 
-def print_weblogo(TTSs, upLen=20, genFasta='../data/genomes/Mtb_genome.fa'):
-	for rec in SeqIO.parse(open(genFasta),'fasta'):
-		seq = str(rec.seq)
-	ntDist = get_ntDist(seq)
+def print_weblogo(file, start=None):
+	seqs = {}
+	for rec in SeqIO.parse(open(file),'fasta'):
+	    r,seq = rec.description,str(rec.seq)
+	    seqs[r] = seq
+	ntDist = get_ntDist(''.join(seqs.values()))
 	
-	print_fasta(TTSs, seq, upLen, 0, 'TTS_seq.fa')
-	cmd = 'weblogo --first-index -%d --color-scheme classic -n 100 ' % (upLen-1)
+	cmd = 'weblogo --first-index -%d --color-scheme classic -n 100 ' % (start)
 	cmd += '--scale-width NO -F pdf --errorbars NO --yaxis 0.5 '
 	cmd += '--composition "%s" ' % ntDist
-	cmd += '< TTS_seq.fa > TTS_seq.pdf'
+	cmd += '< %s > weblogo.pdf' % file
 	os.system(cmd)
 
 def print_EDlogo(file, start=None):
@@ -77,3 +78,4 @@ def print_EDlogo(file, start=None):
 if __name__ == '__main__':
 	file = sys.argv[1]
 	print_EDlogo(file)
+	#print_weblogo(file)
