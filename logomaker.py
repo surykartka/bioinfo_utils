@@ -6,6 +6,7 @@ matplotlib.rcParams['font.sans-serif'] = ['arial']
 matplotlib.rcParams['font.size'] = 14
 
 def get_ntDist(seq):
+	# return normalise ddistribution of nucleotides as a dictionary
 	ntDist = {}
 	for nt in seq:
 		if nt not in '+X':
@@ -19,6 +20,8 @@ def get_ntDist(seq):
 	return ntDist
 
 def print_weblogo(file, start=1):
+	# print weblogo to pdf
+	# start denotes the first position on x axis
 	seqs = {}
 	for rec in SeqIO.parse(open(file),'fasta'):
 	    r,seq = rec.description,str(rec.seq)
@@ -33,7 +36,7 @@ def print_weblogo(file, start=1):
 
 def print_EDlogo(file, start=1):
 	#https://bmcbioinformatics.biomedcentral.com/articles/10.1186/s12859-018-2489-3
-	# EDLogo plot
+	# print EDLogo plot to pdf
 	# start denotes the first position on x axis
 
 	seqs = {}
